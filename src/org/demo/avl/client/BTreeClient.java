@@ -12,7 +12,7 @@ public class BTreeClient {
     }
     
     private void avlTree() {
-        int[] nums = {20, 15, 30,  25, 23};
+        int[] nums = {8, 9, 10};
         AVLTree tree = AVLTree.newInstance();
         
         for (int num : nums) {

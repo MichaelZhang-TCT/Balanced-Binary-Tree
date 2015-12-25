@@ -18,29 +18,14 @@ public class AdjustRR implements Adjustable {
 
     @Override
     public void adjust(AVLTree tree, Node imbalanceNode) {
-        if (imbalanceNode.getLeft() == null) {
-            noLeftAdjust(imbalanceNode);
-        } else {
-            hasLeftAdjust(imbalanceNode);
-        }
-    }
-    
-    // 失衡节点没有左孩子
-    private void noLeftAdjust(Node imbalanceNode) {
-        System.out.println("RR - noLeftAdjust");
         Node parentNode = imbalanceNode.getParent();
         Node rightNode = imbalanceNode.getRight(); // 新添加的节点
         
         resetImbalanceNode(imbalanceNode, rightNode);
-        resetRightNode(rightNode, imbalanceNode, parentNode);
+        resetRightNode(tree, rightNode, imbalanceNode, parentNode);
         resetParentNode(parentNode, rightNode);
     }
     
-    // TODO 失衡节点有左孩子
-    private void hasLeftAdjust(Node imbalanceNode) {
-        System.out.println("RR - hasLeftAdjust");
-    }
-
     /*
      * 重置失衡节点
      * 
@@ -55,7 +40,7 @@ public class AdjustRR implements Adjustable {
     }
     
     /*
-     * 重置失衡节点的右节点
+     * 重置失衡节点的左节点
      * 
      * @param rightNode
      *      右节点
@@ -64,7 +49,12 @@ public class AdjustRR implements Adjustable {
      * @param parentNode
      *      父节点
      */
-    private void resetRightNode(Node rightNode, Node imbalanceNode, Node parentNode) {
+    private void resetRightNode(AVLTree tree, Node rightNode, Node imbalanceNode, Node parentNode) {
+        // 重置整棵树的根节点
+        if (parentNode == null) {
+            tree.resetRoot(rightNode);
+        }
+        
         rightNode.setParent(parentNode);
         rightNode.setLeft(imbalanceNode);
         rightNode.resetHeight();
@@ -80,6 +70,10 @@ public class AdjustRR implements Adjustable {
      *      右节点
      */
     private void resetParentNode(Node parentNode, Node rightNode) {
+        if (parentNode == null || rightNode == null) {
+            return;
+        }
+        
         if (rightNode.getValue() > parentNode.getValue()) {
             parentNode.setRight(rightNode);
         } else {
