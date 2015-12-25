@@ -109,8 +109,12 @@ public class AVLTree {
     private void modifyTree(Node parentNode, Node childNode) {
         insertNode(parentNode, childNode);
         updateHeight(childNode);
-        checkBalance(childNode);
-        modifyBalanceFactor(childNode);
+//        checkBalance(childNode);
+        Node imbalanceNode = modifyBalanceFactor(childNode);
+        if (imbalanceNode != null) {
+            ImbalanceType type = catchImbalance(childNode);
+            adjust(imbalanceNode, type);
+        }
     }
     
     /*
@@ -205,13 +209,16 @@ public class AVLTree {
     }
     
     /*
-     * 检查并重置BF
+     * 检查重置BF并获得不平衡的节点
      * 
      * @param newNode
      *      新添加的节点
+     * @return
+     *      失衡节点
      */
-    private void modifyBalanceFactor(Node newNode) {
+    private Node modifyBalanceFactor(Node newNode) {
         Node node = newNode;
+        Node imbalanceNode = null; // 不平衡的根节点
         do {
             if (node.isLeaf()) {
                 node.setBF(0);
@@ -228,9 +235,16 @@ public class AVLTree {
             rightHeight = rightNode == null ? 0 : rightNode.getHeight() + 1;
             
             node.setBF(leftHeight - rightHeight);
-            
-            node = node.getParent();
+            if (-1 <= node.getBF() && node.getBF() <= 1) {
+                node = node.getParent();
+                continue;
+            } else {
+                imbalanceNode = node;
+                break;
+            }
         } while (node != null);
+        
+        return imbalanceNode;
     }
     
     /*

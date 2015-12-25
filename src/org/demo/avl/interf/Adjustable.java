@@ -6,6 +6,9 @@ import org.demo.avl.tree.Node;
  * <p>
  * 调整AVL树的公共接口
  * </p>
+ * <p>
+ * 所有旋转调节的策略都需要具备调节的能力
+ * </p>
  * 2015年12月24日
  * 
  * @author <a href="http://weibo.com/u/5131020927">Q-WHai</a>

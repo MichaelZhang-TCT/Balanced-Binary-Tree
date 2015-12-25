@@ -44,6 +44,21 @@ public class Node {
     public void setHeight(int height) {
         this.height = height;
     }
+    
+    /**
+     * 重置节点高度
+     */
+    public void resetHeight() {
+        int leftHeight = 0;
+        int rightHeight = 0;
+        Node leftNode = getLeft();
+        Node rightNode = getRight();
+        
+        leftHeight = leftNode == null ? -1 : leftNode.getHeight();
+        rightHeight = rightNode == null ? -1 : rightNode.getHeight();
+        
+        setHeight(Math.max(leftHeight, rightHeight) + 1);
+    }
 
     public Node getParent() {
         return parent;
@@ -79,6 +94,21 @@ public class Node {
     
     public int getBF() {
         return BF;
+    }
+    
+    /**
+     * 重置BF
+     */
+    public void resetBF() {
+        int leftHeight = 0;
+        int rightHeight = 0;
+        Node leftNode = getLeft();
+        Node rightNode = getRight();
+        
+        leftHeight = leftNode == null ? 0 : leftNode.getHeight() + 1;
+        rightHeight = rightNode == null ? 0 : rightNode.getHeight() + 1;
+        
+        setBF(leftHeight - rightHeight);
     }
     
     @Override
