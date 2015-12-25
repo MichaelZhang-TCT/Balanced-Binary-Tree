@@ -39,6 +39,16 @@ public class AVLTree {
     }
     
     /**
+     * 重置AVL树的根节点
+     * 
+     * @param _root
+     *      新的根节点
+     */
+    public void resetRoot(Node _root) {
+        this.root = _root;
+    }
+    
+    /**
      * 获得根节点
      * 
      * @return
@@ -118,7 +128,7 @@ public class AVLTree {
 //        checkBalance(childNode);
         Node imbalanceNode = modifyBalanceFactor(childNode);
         if (imbalanceNode != null) {
-            ImbalanceType type = catchImbalance(childNode);
+            ImbalanceType type = catchImbalance(imbalanceNode);
             System.err.println(imbalanceNode + ">" + type);
             adjust(imbalanceNode, type);
         }
@@ -210,7 +220,7 @@ public class AVLTree {
         }
         
         // TODO 确定失衡状态
-        ImbalanceType type = catchImbalance(newNode);
+        ImbalanceType type = catchImbalanceByNewNode(newNode);
         System.out.println(imbalanceNode + ">" + type);
         adjust(imbalanceNode, type);
     }
@@ -265,7 +275,7 @@ public class AVLTree {
     private void adjust(Node imbalanceNode, ImbalanceType type) {
         Map<ImbalanceType, Adjustable> map = getAdjustMap();
         AdjustUtils adjustUtils = new AdjustUtils(map.get(type));
-        adjustUtils.adjust(imbalanceNode);
+        adjustUtils.adjust(this, imbalanceNode);
     }
     
     /*
@@ -292,7 +302,8 @@ public class AVLTree {
      * @return
      *      失衡状态
      */
-    private ImbalanceType catchImbalance(Node newNode) {
+    @Deprecated
+    private ImbalanceType catchImbalanceByNewNode(Node newNode) {
         int firstType = 0; // L:-1, R:1
         int secondType = 0; // L:-1, R:1
         
@@ -310,5 +321,31 @@ public class AVLTree {
         }
         
         return ImbalanceType.RR;
+    }
+    
+    private ImbalanceType catchImbalance(Node imbalanceNode) {
+        int imbalanceBF = imbalanceNode.getBF();
+        int childBF = 0;
+        if (imbalanceBF < 0) {
+            childBF = imbalanceNode.getRight().getBF();
+            if (childBF < 0) {
+                return ImbalanceType.RR;
+            } else if (childBF > 0) {
+                return ImbalanceType.RL;
+            } else {
+                return ImbalanceType.Balance;
+            }
+        } else if (imbalanceBF > 0) {
+            childBF = imbalanceNode.getLeft().getBF();
+            if (childBF < 0) {
+                return ImbalanceType.LR;
+            } else if (childBF > 0) {
+                return ImbalanceType.LL;
+            } else {
+                return ImbalanceType.Balance;
+            }
+        } else {
+            return ImbalanceType.Balance;
+        }
     }
 }

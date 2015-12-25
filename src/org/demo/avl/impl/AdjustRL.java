@@ -1,6 +1,7 @@
 package org.demo.avl.impl;
 
 import org.demo.avl.interf.Adjustable;
+import org.demo.avl.tree.AVLTree;
 import org.demo.avl.tree.Node;
 
 /**
@@ -16,9 +17,9 @@ import org.demo.avl.tree.Node;
 public class AdjustRL implements Adjustable {
 
     @Override
-    public void adjust(Node imbalanceNode) {
+    public void adjust(AVLTree tree, Node imbalanceNode) {
         // TODO Auto-generated method stub
-
+        System.out.println("RL");
     }
 
 }

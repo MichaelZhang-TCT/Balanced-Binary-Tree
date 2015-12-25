@@ -12,7 +12,7 @@ package org.demo.bst.type;
  */
 public enum ImbalanceType {
 
-    LL("左左失衡"), LR("左右失衡"), RR("右右失衡"), RL("右左失衡");
+    LL("左左失衡"), LR("左右失衡"), RR("右右失衡"), RL("右左失衡"), Balance("平衡状态");
     
     private String desc;
     

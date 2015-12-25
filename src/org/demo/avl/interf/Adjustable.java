@@ -1,5 +1,6 @@
 package org.demo.avl.interf;
 
+import org.demo.avl.tree.AVLTree;
 import org.demo.avl.tree.Node;
 
 /**
@@ -20,8 +21,10 @@ public interface Adjustable {
     /**
      * 调节AVL树的平衡
      * 
+     * @param tree
+     *      平衡二叉树
      * @param imbalanceNode
      *      失衡的节点
      */
-    public void adjust(Node imbalanceNode);
+    public void adjust(AVLTree tree, Node imbalanceNode);
 }

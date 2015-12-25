@@ -1,6 +1,7 @@
 package org.demo.avl.impl;
 
 import org.demo.avl.interf.Adjustable;
+import org.demo.avl.tree.AVLTree;
 import org.demo.avl.tree.Node;
 
 /**
@@ -16,30 +17,15 @@ import org.demo.avl.tree.Node;
 public class AdjustLL implements Adjustable {
 
     @Override
-    public void adjust(Node imbalanceNode) {
-        if (imbalanceNode.getRight() == null) {
-            noRightAdjust(imbalanceNode);
-        } else {
-            hasRightAdjust(imbalanceNode);
-        }
-    }
-
-    // 失衡节点没有右孩子
-    private void noRightAdjust(Node imbalanceNode) {
+    public void adjust(AVLTree tree, Node imbalanceNode) {
         Node parentNode = imbalanceNode.getParent();
         Node leftNode = imbalanceNode.getLeft(); // 新添加的节点
         
         resetImbalanceNode(imbalanceNode, leftNode);
-        resetLeftNode(leftNode, imbalanceNode, parentNode);
+        resetLeftNode(tree, leftNode, imbalanceNode, parentNode);
         resetParentNode(parentNode, leftNode);
     }
-    
-    // TODO 失衡节点有右孩子
-    private void hasRightAdjust(Node imbalanceNode) {
-        System.out.println("LL - hasRightAdjust");
-        
-    }
-    
+
     /*
      * 重置失衡节点
      * 
@@ -63,7 +49,12 @@ public class AdjustLL implements Adjustable {
      * @param parentNode
      *      父节点
      */
-    private void resetLeftNode(Node leftNode, Node imbalanceNode, Node parentNode) {
+    private void resetLeftNode(AVLTree tree, Node leftNode, Node imbalanceNode, Node parentNode) {
+        // 重置整棵树的根节点
+        if (parentNode == null) {
+            tree.resetRoot(leftNode);
+        }
+        
         leftNode.setParent(parentNode);
         leftNode.setRight(imbalanceNode);
         leftNode.resetHeight();
@@ -79,6 +70,10 @@ public class AdjustLL implements Adjustable {
      *      左节点
      */
     private void resetParentNode(Node parentNode, Node leftNode) {
+        if (parentNode == null || leftNode == null) {
+            return;
+        }
+        
         if (leftNode.getValue() > parentNode.getValue()) {
             parentNode.setRight(leftNode);
         } else {
