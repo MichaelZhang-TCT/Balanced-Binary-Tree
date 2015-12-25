@@ -18,7 +18,7 @@ public class AdjustLR implements Adjustable {
     @Override
     public void adjust(Node imbalanceNode) {
         // TODO Auto-generated method stub
-
+        
     }
 
 }

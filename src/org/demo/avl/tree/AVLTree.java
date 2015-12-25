@@ -38,6 +38,12 @@ public class AVLTree {
         return instance;
     }
     
+    /**
+     * 获得根节点
+     * 
+     * @return
+     *      根节点
+     */
     public Node getRoot() {
         return this.root;
     }
@@ -113,6 +119,7 @@ public class AVLTree {
         Node imbalanceNode = modifyBalanceFactor(childNode);
         if (imbalanceNode != null) {
             ImbalanceType type = catchImbalance(childNode);
+            System.err.println(imbalanceNode + ">" + type);
             adjust(imbalanceNode, type);
         }
     }

@@ -11,7 +11,7 @@ import org.demo.avl.tree.Node;
  * 
  * @author <a href="http://weibo.com/u/5131020927">Q-WHai</a>
  * @see <a href="http://blog.csdn.net/lemon_tree12138">http://blog.csdn.net/lemon_tree12138</a>
- * @version 0.1
+ * @version 0.1.1
  */
 public class AdjustLL implements Adjustable {
 
@@ -29,21 +29,15 @@ public class AdjustLL implements Adjustable {
         Node parentNode = imbalanceNode.getParent();
         Node leftNode = imbalanceNode.getLeft(); // 新添加的节点
         
-        leftNode.setRight(imbalanceNode);
-        if (imbalanceNode.getValue() < parentNode.getValue()) {
-            
-        } else {
-            resetImbalanceNode(imbalanceNode, leftNode);
-            
-            resetLeftNode(leftNode, imbalanceNode, parentNode);
-            
-            resetParentNode(parentNode, leftNode);
-        }
+        resetImbalanceNode(imbalanceNode, leftNode);
+        resetLeftNode(leftNode, imbalanceNode, parentNode);
+        resetParentNode(parentNode, leftNode);
     }
     
-    // TODO 失衡节点没有右孩子
+    // TODO 失衡节点有右孩子
     private void hasRightAdjust(Node imbalanceNode) {
         System.out.println("LL - hasRightAdjust");
+        
     }
     
     /*

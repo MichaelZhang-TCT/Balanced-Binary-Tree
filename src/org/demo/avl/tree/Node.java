@@ -97,7 +97,7 @@ public class Node {
     }
     
     /**
-     * 重置BF
+     * 重置节点BF
      */
     public void resetBF() {
         int leftHeight = 0;
