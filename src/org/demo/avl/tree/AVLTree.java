@@ -110,6 +110,7 @@ public class AVLTree {
         insertNode(parentNode, childNode);
         updateHeight(childNode);
         checkBalance(childNode);
+        modifyBalanceFactor(childNode);
     }
     
     /*
@@ -201,6 +202,35 @@ public class AVLTree {
         ImbalanceType type = catchImbalance(newNode);
         System.out.println(imbalanceNode + ">" + type);
         adjust(imbalanceNode, type);
+    }
+    
+    /*
+     * 检查并重置BF
+     * 
+     * @param newNode
+     *      新添加的节点
+     */
+    private void modifyBalanceFactor(Node newNode) {
+        Node node = newNode;
+        do {
+            if (node.isLeaf()) {
+                node.setBF(0);
+                node = node.getParent();
+                continue;
+            }
+            
+            int leftHeight = 0;
+            int rightHeight = 0;
+            Node leftNode = node.getLeft();
+            Node rightNode = node.getRight();
+            
+            leftHeight = leftNode == null ? 0 : leftNode.getHeight() + 1;
+            rightHeight = rightNode == null ? 0 : rightNode.getHeight() + 1;
+            
+            node.setBF(leftHeight - rightHeight);
+            
+            node = node.getParent();
+        } while (node != null);
     }
     
     /*

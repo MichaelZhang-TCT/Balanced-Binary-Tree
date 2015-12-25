@@ -63,6 +63,16 @@ public class Node {
         return (left != null && right != null);
     }
     
+    /**
+     * 是不是叶子节点
+     * 
+     * @return
+     *      结果
+     */
+    public boolean isLeaf() {
+        return (left == null && right == null);
+    }
+    
     public void setBF(int _BF) {
         BF = _BF;
     }
@@ -73,6 +83,6 @@ public class Node {
     
     @Override
     public String toString() {
-        return "[" + String.valueOf(value) + ", " + getHeight() + "]";
+        return "[" + String.valueOf(value) + ", " + getBF() + "]";
     }
 }
