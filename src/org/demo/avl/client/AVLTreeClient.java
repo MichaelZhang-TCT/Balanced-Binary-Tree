@@ -4,15 +4,15 @@ import java.util.ArrayList;
 
 import org.demo.avl.tree.AVLTree;
 
-public class BTreeClient {
+public class AVLTreeClient {
 
     public static void main(String[] args) {
-        BTreeClient client = new BTreeClient();
+        AVLTreeClient client = new AVLTreeClient();
         client.avlTree();
     }
     
     private void avlTree() {
-        int[] nums = {8, 9, 10};
+        int[] nums = {20, 15, 30, 40, 25, 23};
         AVLTree tree = AVLTree.newInstance();
         
         for (int num : nums) {

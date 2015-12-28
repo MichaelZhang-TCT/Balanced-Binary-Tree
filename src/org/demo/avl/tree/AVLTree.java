@@ -129,7 +129,6 @@ public class AVLTree {
         Node imbalanceNode = modifyBalanceFactor(childNode);
         if (imbalanceNode != null) {
             ImbalanceType type = catchImbalance(imbalanceNode);
-            System.err.println(imbalanceNode + ">" + type);
             adjust(imbalanceNode, type);
         }
     }
@@ -178,6 +177,8 @@ public class AVLTree {
      * @param newNode
      *      新添加的节点
      */
+    @SuppressWarnings("unused")
+    @Deprecated
     private void checkBalance(Node newNode) {
         Node parentNode = newNode.getParent();
         Node leftNode = null;
@@ -189,14 +190,14 @@ public class AVLTree {
             int leftHeight = 0;
             int rightHeight = 0;
             
-            // TODO 只有左孩子
+            // 只有左孩子
             if (leftNode == null) {
                 leftHeight = -1;
             } else {
                 leftHeight = leftNode.getHeight();
             }
             
-            // TODO 只有右孩子
+            // 只有右孩子
             if (rightNode == null) {
                 rightHeight = -1;
             } else {
@@ -219,7 +220,7 @@ public class AVLTree {
             return;
         }
         
-        // TODO 确定失衡状态
+        // 确定失衡状态
         ImbalanceType type = catchImbalanceByNewNode(newNode);
         System.out.println(imbalanceNode + ">" + type);
         adjust(imbalanceNode, type);
